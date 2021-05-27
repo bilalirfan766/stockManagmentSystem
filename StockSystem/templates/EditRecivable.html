@@ -1,0 +1,88 @@
+{% extends 'dashboard.html' %}
+
+{% block content %}
+
+<form action="" method="post">{% csrf_token%}
+    {{form.as_p}}
+    <input type="submit" value="Save">
+
+</form>
+
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    {{ message }}
+    {% endfor %}
+</ul>
+{% endif %}
+
+
+
+
+<div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title ">Simple Table</h4>
+                  <p class="card-category"> Here is a subtitle for this table</p>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead class=" text-primary">
+                        <th>
+                          userID
+                        </th>
+                        <th>
+                          RecivableAmount
+                        </th>
+                      <th>
+                          Date
+                        </th>
+                       <th>
+                          Action
+                        </th>
+
+                      </thead>
+                      <tbody>
+                      {% if recivable %}
+                      {% for recivable in recivable %}
+                        <tr>
+                          <td>
+                            {{recivable.userID}}
+                          </td>
+                          <td>
+                            {{recivable.RecivableAmount}}
+                          </td>
+                          <td>
+                            {{recivable.DateData}}
+                          </td>
+                          <td >
+                            <a href="{% url 'editrecivableRecord' recivable.userID recivable.RecivableAmount %}" class="btn btn-warning">Edit </a>
+                              <a class="btn btn-success ">Delete  </a>
+                          </td>
+                        </tr>
+                      {% endfor %}
+                      {% endif %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+<script>
+  $(function() {
+    $( ".datepicker" ).datepicker({
+      changeMonth: true,
+      changeYear: true,
+      yearRange: "1900:2012",
+      // You can put more options here.
+
+    });
+  });
+</script>
+
+{% endblock %}

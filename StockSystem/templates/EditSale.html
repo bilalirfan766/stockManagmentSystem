@@ -1,0 +1,95 @@
+{% extends 'dashboard.html' %}
+
+{% block content %}
+
+<form action="" method="post">{% csrf_token%}
+    {{form.as_p}}
+    <input type="submit" value="submit">
+
+</form>
+
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    {{ message }}
+    {% endfor %}
+</ul>
+{% endif %}
+
+<div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title ">Simple Table</h4>
+                  <p class="card-category"> Here is a subtitle for this table</p>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead class=" text-primary">
+                        <th>
+                          StockQuantitySale
+                        </th>
+                        <th>
+                          StockPrice
+                        </th>
+                        <th>
+                          TotalRecivable
+                        </th>
+                        <th>
+                          DateData
+                        </th>
+                        <th>
+                          Action
+                        </th>
+                      </thead>
+                      <tbody>
+                      {% if SALE %}
+                      <h1>{{SALE.userID}}</h1>
+                      {% for sale in SALE %}
+                        <tr>
+                          <td>
+                            {{sale.StockQuantitySale}}
+                          </td>
+                          <td>
+                            {{sale.StockPrice}}
+                          </td>
+                          <td>
+                            {{sale.TotalRecivable}}
+                          </td>
+                          <td>
+                            {{sale.DateData}}
+                          </td>
+                          <td >
+                            <a href="{% url 'salerecord' sale.userID sale.stockID sale.StockQuantitySale sale.StockPrice sale.TotalRecivable %}" class="btn btn-warning">Edit </a>
+                              <a class="btn btn-success ">Delete  </a>
+                          </td>
+                        </tr>
+                      {% endfor %}
+                      {% endif %}
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+
+
+
+<script>
+  $(function() {
+    $( ".datepicker" ).datepicker({
+      changeMonth: true,
+      changeYear: true,
+      yearRange: "1900:2012",
+      // You can put more options here.
+
+    });
+  });
+</script>
+
+{% endblock %}
